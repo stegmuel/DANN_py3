@@ -6,7 +6,7 @@ from data_loader import GetLoader
 from torchvision import datasets
 
 
-def test(dataset_name, dataset_dir, models_dir):
+def test_accuracy(dataset_name, dataset_dir, models_dir):
     assert dataset_name in ['MNIST', 'mnist_m']
 
     image_root = os.path.join(dataset_dir, dataset_name)
