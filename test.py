@@ -6,11 +6,10 @@ from data_loader import GetLoader
 from torchvision import datasets
 
 
-def test(dataset_name):
+def test(dataset_name, dataset_dir, models_dir):
     assert dataset_name in ['MNIST', 'mnist_m']
 
-    model_root = 'models'
-    image_root = os.path.join('dataset', dataset_name)
+    image_root = os.path.join(dataset_dir, dataset_name)
 
     cuda = True
     cudnn.benchmark = True
@@ -42,7 +41,7 @@ def test(dataset_name):
         )
     else:
         dataset = datasets.MNIST(
-            root='dataset',
+            root=dataset_dir,
             train=False,
             transform=img_transform_source,
         )
@@ -55,10 +54,7 @@ def test(dataset_name):
     )
 
     """ test """
-
-    my_net = torch.load(os.path.join(
-        model_root, 'mnist_mnistm_model_epoch_current.pth'
-    ))
+    my_net = torch.load(os.path.join(models_dir, 'mnist_mnistm_model_epoch_current.pth'))
     my_net = my_net.eval()
 
     if cuda:
