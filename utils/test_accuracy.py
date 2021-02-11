@@ -4,11 +4,11 @@ import torch.backends.cudnn as cudnn
 import torch
 
 def test_accuracy(dataloader_valid, model, cuda):
-    alpha = 0
+    alpha = 0.
     model.eval()
     data_iter = iter(dataloader_valid)
-    n_total = 0
-    n_correct = 0
+    n_total = 0.
+    n_correct = 0.
 
     for image, label in data_iter:
         batch_size = len(label)
@@ -18,10 +18,10 @@ def test_accuracy(dataloader_valid, model, cuda):
 
         with torch.no_grad():
             class_output, _ = model(input_data=image, alpha=alpha)
-        pred = class_output.data.max(1, keepdim=True)[1]
-        n_correct += pred.eq(label.data.view_as(pred)).cpu().sum()
+        pred = class_output.max(1, keepdim=True)[1]
+        n_correct += pred.eq(label.data.view_as(pred)).sum().item()
         n_total += batch_size
 
-    accu = n_correct.data.numpy() * 1.0 / n_total
+    accu = n_correct / n_total
     model.train()
     return accu
