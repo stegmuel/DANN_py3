@@ -61,7 +61,7 @@ class ResNet18Model(nn.Module):
         self.class_classifier.add_module('c_fc2', nn.Linear(100, 100))
         self.class_classifier.add_module('c_bn2', nn.BatchNorm1d(100))
         self.class_classifier.add_module('c_relu2', nn.ReLU(True))
-        self.class_classifier.add_module('c_fc3', nn.Linear(100, 10))
+        self.class_classifier.add_module('c_fc3', nn.Linear(100, 9))
         # self.class_classifier.add_module('c_softmax', nn.LogSoftmax(dim=1))
 
         self.domain_classifier = nn.Sequential()
