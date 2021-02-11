@@ -3,7 +3,7 @@ import torch.backends.cudnn as cudnn
 # import torch.utils.data
 import torch
 
-def test_accuracy(dataloader_valid, model, cuda):
+def test_accuracy(dataloader_valid, model, device):
     alpha = 0.
     model.eval()
     data_iter = iter(dataloader_valid)
@@ -12,9 +12,8 @@ def test_accuracy(dataloader_valid, model, cuda):
 
     for image, label in data_iter:
         batch_size = len(label)
-        if cuda:
-            image = image.cuda()
-            label = label.cuda()
+        image = image.to(device)
+        label = label.to(device)
 
         with torch.no_grad():
             class_output, _ = model(input_data=image, alpha=alpha)
