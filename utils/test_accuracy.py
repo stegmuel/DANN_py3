@@ -4,7 +4,6 @@ import torch.backends.cudnn as cudnn
 import torch
 
 def test_accuracy(dataloader_valid, model, cuda):
-    cudnn.benchmark = True
     alpha = 0
     model.eval()
     data_iter = iter(dataloader_valid)
